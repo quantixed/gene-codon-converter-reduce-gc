@@ -23,7 +23,7 @@ Run the command
 By default, the optimizer will look to 80% reduce G/C and 20% to use common human codons. You can change this by adding the `--weight` argument and specify a value between 0-1.
 
 For example,
-```python gene_converter.py --weight 1.0``` will try to only use A/T nucleotides when it can, irregardless of commoness of codons.
+```python gene_converter.py --weight 1.0``` will try to only use A/T nucleotides when it can, irregardless of commonness of codons.
 
 ### Example Output
 

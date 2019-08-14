@@ -4,6 +4,7 @@ import shutil
 
 import pandas as pd
 from Bio import SeqIO
+from Bio.Alphabet import generic_rna
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
@@ -71,7 +72,7 @@ for acid in ngly1_acids:
     # Search back and find what codons corresponds to this index with maximum overall score
     better_codons += codon_to_acid_with_freq_and_at_count.loc[idx].codon
 
-better_seq = Seq(better_codons)
+better_seq = Seq(better_codons, generic_rna)
 
 
 def print_separator():
@@ -103,4 +104,6 @@ os.makedirs(os.path.dirname(output_path), exist_ok=True)
 record = SeqRecord(better_seq, id=ngly1_raw.id, description=ngly1_raw.description)
 SeqIO.write(record, output_path, 'fasta')
 print(f'Wrote output file to {output_path}')
+print_separator()
+print(f'Are both same amino acids: {ngly1_raw.translate().seq == better_seq.translate()}')
 print_separator()
