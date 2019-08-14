@@ -91,7 +91,7 @@ print_separator()
 print(better_seq)
 print_separator()
 print(
-    f'Total Nucleotides: {len(better_seq)} G Count: {g_count}, C Count: {c_count}, A Count: {a_count}, T Count: {t_count}')
+    f'Total Nucleotides: {len(better_seq)}. G Count: {g_count}, C Count: {c_count}, A Count: {a_count}, T Count: {t_count}')
 print_separator()
 gc_count = g_count + c_count
 print(f'G/C Count: {gc_count}')
