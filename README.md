@@ -16,7 +16,7 @@ Run the command
 By default, the output will be in the same folder but appended with `optimzed` in the file name.
 
 Run the command
-```python gene_converter.py -h` to see all options
+```python gene_converter.py -h``` to see all options
 
 ### Optimization Aggression
 
