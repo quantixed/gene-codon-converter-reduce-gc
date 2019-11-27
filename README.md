@@ -50,3 +50,8 @@ G/C Percentage: 57.66%
 Wrote output file to data/hngly1-mrna_optimized.fasta
 =========================================================================================================================================================================================================================================================================
 ```
+
+The website version can be seen on the branch `website`. Here is what it looks like:
+
+![Website Image](website.png)
+
