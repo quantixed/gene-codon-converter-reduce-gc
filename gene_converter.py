@@ -4,7 +4,6 @@ import shutil
 
 import pandas as pd
 from Bio import SeqIO
-from Bio.Alphabet import generic_rna
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
 
@@ -24,7 +23,7 @@ parser.add_argument('--weight', type=float, nargs='?', default=0.8,
 args = parser.parse_args()
 
 # We assume that the csv has no header and is separated by spaces
-codons_to_acid = pd.read_csv(args.codon_table, names=['codon', 'amino_acid'], sep=' ', header=None)
+codons_to_acid = pd.read_csv(args.codon_table, names=['codon', 'amino_acid'], sep=r'\s+', header=None, engine='python')
 # Use only first and third columns which are codons and frequency count in human genome
 codon_freq = pd.read_csv(args.freq, usecols=[0, 2])
 ngly1_raw = SeqIO.read(args.seq, 'fasta')
@@ -72,7 +71,7 @@ for acid in ngly1_acids:
     # Search back and find what codons corresponds to this index with maximum overall score
     better_codons += codon_to_acid_with_freq_and_at_count.loc[idx].codon
 
-better_seq = Seq(better_codons, generic_rna)
+better_seq = Seq(better_codons)
 
 
 def print_separator():
@@ -101,7 +100,8 @@ print_separator()
 output_path = args.output or f'{args.seq.replace(".fasta", "")}_optimized.fasta'
 # Make directories leading up if they do not exist already, writing the record will fail otherwise
 os.makedirs(os.path.dirname(output_path), exist_ok=True)
-record = SeqRecord(better_seq, id=ngly1_raw.id, description=ngly1_raw.description)
+record = SeqRecord(better_seq, id=ngly1_raw.id, description=ngly1_raw.description, 
+                   annotations={"molecule_type": "RNA"})
 SeqIO.write(record, output_path, 'fasta')
 print(f'Wrote output file to {output_path}')
 print_separator()
